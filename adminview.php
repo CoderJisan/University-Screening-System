@@ -3,7 +3,7 @@ session_start();
 if(!isset($_SESSION['admin'])){
 	header("location: admin.php");
 }else{
-	$_SESSION['adminview']= ;
+	$_SESSION['adminview']= true;
 	include('connection.php');
 	$search_query="SELECT * FROM users";
 	$search_result=mysqli_query($conn, $search_query);
@@ -17,6 +17,11 @@ if(!isset($_SESSION['admin'])){
 <head>
 	<title>Admin View</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			$("tr:even").css("background-color", "#e8e8e8");
+		});
+	</script>
 </head>
 <body>
 	<?php
@@ -87,8 +92,8 @@ if(!isset($_SESSION['admin'])){
 					echo "<td>".$view['fee']."</td>";
 					echo "<td>".$view['qsrank']."</td>";
 					echo "<td>".$view['status']."</td>";
-					echo "<td>><button type='button' class=
-			 		'btn btn-success' onclick = >Update</button></td>";
+					echo "<td><a href=adminUpdate.php?adminup=".$view['id']."><button type='button' class=
+			 		'btn btn-success'>Update</button></a></td>";
 					echo "<td><a href=adminDelete.php?admindel=".$view['id']."><button type='button' class=
 			 		'btn btn-danger'>Delete</button></a></td>";
 					echo "</tr>";
@@ -103,12 +108,4 @@ if(!isset($_SESSION['admin'])){
       </div>
     </div>
 </body>
-<?php
-function update(){
-	while ($view = mysqli_fetch_array($view_result)){
-		"<a href=adminUpdate.php?adminup=".$view['id'];
-	}
-	
-}
-?>
 </html>

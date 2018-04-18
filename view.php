@@ -2,10 +2,6 @@
 
 session_start();
 include "connection.php";
-// $Name = '';
-// $Area = '';
-// $GPA = '';
-// $Fees = '';
 if(!isset($_SESSION['use'])){
 	header("location: login.php");
 }
@@ -47,67 +43,6 @@ else{
 	} else{
 		echo("result error");
 	}
-	// $uniname = $_POST['Name'];
-	// $uniarea = $_POST['Area'];
-	// $unigpa = $_POST['GPA'];
-	// $unifee = $_POST['Fees'];
-	// if (isset($_POST['search'])) {
-	// 	# code...
-	// 	$uni_results = mysqli_query($conn,"SELECT * FROM university
-	// 		WHERE name LIKE %$uni% OR  area LIKE %$area%");
-	// 	if(mysql_num_rows($uni_results) > 0){
-	// 		echo "6";
-	// 		while ($unirow = mysqli_fetch_array($search_results)) {
-	// 			$Name = $unirow['name'];
-	// 			$Area = $unirow['area'];
-	// 			$GPA = $unirow['gpa'];
-	// 			$Fees = $unirow['fee'];
-	// 		}
-	// 	}
-	// 	else{
-	// 		header("location: view.php");
-	// 	}
-	// }
-	// else{
-	// 	header("location: view.php");
-	// }
-
-	// $Name = '';
-	// $Area = '';
-	// $Fee = '';
-	// $QsRanking = '';
-	if (isset($_POST['search'])) {
-			# code...
-		$uni = $_POST['uni'];
-		$area = $_POST['area'];
-		$gpa = $_POST['gpa'];
-		$fee = $_POST['fees'];
-		$search_results = mysqli_query($conn,"SELECT * FROM university
-			WHERE name LIKE '%$uni%' OR  area LIKE '%$area%' ");
-		// if ($search_results) {
-		// 	# code...
-		// 	echo "sting";
-		// }
-		// else{
-		// 	echo "car";
-		// }
-		if(mysql_num_rows($search_results) > 0){
-			echo "6";
-			while ($row = mysqli_fetch_array($search_results)) {
-				$Name = $row['name'];
-				echo $Name;
-				// $Area = $row['']
-				// echo "Name: ".$Name;
-				// echo "string";
-				$output.= '<div>'.$Name.'</div>';
-			}
-		}
-		else{
-			echo "	<div class='alert alert-danger>
-			<strong>No Results Found...</strong>
-			</div> ";
-		}
-	}
 }
 ?>
 <!DOCTYPE html>
@@ -120,6 +55,8 @@ else{
 			$("tr:even").css("background-color", "#e8e8e8");
 		});
 	</script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
 	<?php
@@ -158,70 +95,13 @@ else{
 				</tr>
 			</tbody>
 		</table>
-		<form method="post" name="search" action="">
-			<div class="row" style="padding-right: 20px;">
-				<div class="col-lg-6">
-					<div class="input-group">
-						<input type="text" class="form-control" placeholder="Search by..." name="Name">
-						<!-- <span class="input-group-btn">
-							<button class="btn btn-default" type="button">University Name</button>
-						</span> -->
-					</div><!-- /input-group -->
-				</div><!-- /.col-lg-6 -->
-				<div class="col-lg-6">
-					<div class="input-group">
-						<input type="text" class="form-control" placeholder="Search by..." name="Area">
-						<!-- <span class="input-group-btn">
-							<button class="btn btn-default">Area</button>
-						</span> -->
-					</div><!-- /input-group -->
-				</div><!-- /.col-lg-6 -->
+		<div class="form-group" style="padding-right: 10px;">
+			<div class="input-group">
+				<span class="input-group-addon">Search</span>
+				<input type="text" name="search_text" id="search_text" placeholder="Search by Name/ Area/ Required GPA/ Per Credit Fee/ Qs Ranking/ Private/ Public" class="form-control" />
 			</div>
-			<div style="padding-top: 10px; padding-right: 20px;">
-				<div class="col-lg-6">
-					<div class="input-group">
-						<input type="text" class="form-control" placeholder="Search by..." name="Gpa">
-						<!-- <span class="input-group-btn">
-							<button class="btn btn-default" type="button">Minimum Gpa to Apply</button>
-						</span> -->
-					</div><!-- /input-group -->
-				</div><!-- /.col-lg-6 -->
-				<div class="col-lg-6">
-					<div class="input-group">
-						<input type="text" class="form-control" placeholder="Search by..." name="Fees">
-						<!-- <span class="input-group-btn">
-							<button class="btn btn-default" type="button">Fee Per Credit</button>
-						</span> -->
-					</div><!-- /input-group -->
-				</div><!-- /.col-lg-6 -->
-			</div><!-- /.row -->
-			<div class="col-sm-offset-2 col-sm-10" style="padding-top: 20px; padding-bottom: 20px; padding-left: 30%;">
-				<button type="submit" class="btn btn-default" name="search">Search</button>
-			</div>
-		</form>
-		<!-- <table class="table">
-			<thead class="thead-dark">
-				<tr>
-					<th scope="col">#</th>
-					<th scope="col">University Name</th>
-					<th scope="col">University Location</th>
-					<th scope="col">Req. GPA(SSC+HSC/O+A level)</th>
-					<th scope="col">University's Per Credit Fee</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<th scope="col"></th>
-					<td scope="col"><?php  ($Name); ?></td>
-					<td scope="col"><?php  ($Area); ?></td>
-					<td scope="col"><?php  ($GPA); ?></td>
-					<td scope="col"><?php  ($Fees); ?></td>
-				</tr>
-			</tbody>
-		</table> -->
-		<!-- <?php
-		// print($output);
-		?> -->
+		</div>
+		<div id="result"></div>
 	</div>
 	<div style="padding-left: 10px;">
 		<table class="table">
@@ -267,4 +147,33 @@ else{
 	?>
 	
 </body>
+<script>
+$(document).ready(function(){
+	load_data();
+	function load_data(query)
+	{
+		$.ajax({
+			url:"fetchbyname.php",
+			method:"post",
+			data:{query:query},
+			success:function(data)
+			{
+				$('#result').html(data);
+			}
+		});
+	}
+	
+	$('#search_text').keyup(function(){
+		var search = $(this).val();
+		if(search != '')
+		{
+			load_data(search);
+		}
+		else
+		{
+			load_data();			
+		}
+	});
+});
+</script>
 </html>

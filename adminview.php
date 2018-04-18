@@ -10,7 +10,7 @@ if(!isset($_SESSION['admin'])){
 	$view_query = "SELECT * FROM university";
 	$view_result = mysqli_query($conn, $view_query);
 }
-	
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -30,43 +30,46 @@ if(!isset($_SESSION['admin'])){
 	<div class="page-header">
 		<h1 style="text-align: center;">User's List</h1>
 	</div>
-	<table class="table">
-		<thead class="thead-dark">
-			<tr>
-				<th scope="col">#</th>
-				<th scope="col">Full Name</th>
-				<th scope="col">User Name</th>
-				<th scope="col">Email</th>
-				<th scope="col">Your SSC GPA</th>
-				<th scope="col">Your HSC GPA</th>
-				<th scope="col">Preffered University</th>
-				<th scope="col">Preffered Fee</th>
-			</tr>
-		</thead>
-		<tbody>
-			<?php
-			 	while ($row = mysqli_fetch_array($search_result)) {
+	<div padding-left: 10px;padding-right: 10px;>
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Full Name</th>
+					<th scope="col">User Name</th>
+					<th scope="col">Email</th>
+					<th scope="col">Your SSC GPA</th>
+					<th scope="col">Your HSC GPA</th>
+					<th scope="col">Preffered University</th>
+					<th scope="col">Preffered Fee</th>
+					<th scope="col"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php
+				while ($row = mysqli_fetch_array($search_result)) {
 			 		# code...
-			 		echo "<tr>";
-			 		echo "<td>".$row['id']."</td>";
-			 		echo "<td>".$row['name']."</td>";
-			 		echo "<td>".$row['uname']."</td>";
-			 		echo "<td>".$row['email']."</td>";
-			 		echo "<td>".$row['ssc']."</td>";
-			 		echo "<td>".$row['hsc']."</td>";
-			 		echo "<td>".$row['uni']."</td>";
-			 		echo "<td>".$row['fee']."</td>";
-			 		echo "<td><a href=delete.php?delete=".$row['id']."><button type='button' class=
-			 		'btn btn-danger'>Delete</button></a></td>";
-			 		echo "</tr>";
-			 	}
-			?>
-		</tbody>
-	</table>
+					echo "<tr>";
+					echo "<td>".$row['id']."</td>";
+					echo "<td>".$row['name']."</td>";
+					echo "<td>".$row['uname']."</td>";
+					echo "<td>".$row['email']."</td>";
+					echo "<td>".$row['ssc']."</td>";
+					echo "<td>".$row['hsc']."</td>";
+					echo "<td>".$row['uni']."</td>";
+					echo "<td>".$row['fee']."</td>";
+					echo "<td><a href=delete.php?delete=".$row['id']."><button type='button' class=
+					'btn btn-danger'>Delete</button></a></td>";
+					echo "</tr>";
+				}
+				?>
+			</tbody>
+		</table>
+	</div>
 	<div class="page-header">
 		<h1 style="text-align: center;">Enlisted University List</h1>
 	</div>
-	<div style="padding-left: 20px; padding-right: 10px;">
+	<div style="padding-left: 10px; padding-right: 10px;">
 		<table class="table">
 			<thead class="thead-dark">
 				<tr>
@@ -93,19 +96,24 @@ if(!isset($_SESSION['admin'])){
 					echo "<td>".$view['qsrank']."</td>";
 					echo "<td>".$view['status']."</td>";
 					echo "<td><a href=adminUpdate.php?adminup=".$view['id']."><button type='button' class=
-			 		'btn btn-success'>Update</button></a></td>";
+					'btn btn-success'>Update</button></a></td>";
 					echo "<td><a href=adminDelete.php?admindel=".$view['id']."><button type='button' class=
-			 		'btn btn-danger'>Delete</button></a></td>";
+					'btn btn-danger'>Delete</button></a></td>";
 					echo "</tr>";
 				}
 				?>
 			</tbody>
 		</table>
 	</div>
+	<div class="form-group" style="padding-left: 31%; padding-bottom: 5%;">
+		<div class="col-sm-offset-2 col-sm-10">
+			<a href="adminInsert.php"><button type="submit" class="btn btn-success" name="submit">Enlist A new University</button></a>
+		</div>
+	</div>
 	<div class="form-group" style="padding-left: 35%; padding-bottom: 5%;">
-      <div class="col-sm-offset-2 col-sm-10">
-        <a href="logout.php"><button type="submit" class="btn btn-danger" name="submit">Sign out</button></a>
-      </div>
-    </div>
+		<div class="col-sm-offset-2 col-sm-10">
+			<a href="logout.php"><button type="submit" class="btn btn-danger" name="submit">Sign out</button></a>
+		</div>
+	</div>
 </body>
 </html>
